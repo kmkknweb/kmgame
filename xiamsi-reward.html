@@ -479,7 +479,12 @@ html,body{
 
 <script>
 const API='https://script.google.com/macros/s/AKfycbw6yuCH7_BlNnATWgHNUyVmo8YiD12br97HZammIoRzmlidAK97S7l93Xs9PJ6pUTVpFg/exec';
-
+window.onload = function() {
+  const hash = window.location.hash;
+  if(hash === '#shake') startShakeGame();
+  else if(hash === '#wheel') startWheelGame();
+  else boot(); // โหลดปกติถ้าไม่มี hash
+};
 // Stars
 (function(){
   const c=document.getElementById('stars');
