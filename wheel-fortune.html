@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>หมุนวงล้อโชคลาภ — อากงอาม่าให้โชค</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+Thai:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#D4A017;--gold2:#F5C842;--gold-dim:rgba(212,160,23,0.25);
+  --red:#B91C1C;--red2:#EF4444;
+  --bg:#2A1606;--bg2:#5A330C;--bg3:#FFF0C2;
+  --text:#5A2A05;--muted:#7A4A14;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:linear-gradient(180deg,#FFF4CE 0%,#F4C86A 46%,#9B5A16 100%);color:var(--text);font-family:'Noto Sans Thai',sans-serif}
+.bg-amb{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 72% 46% at 50% 5%,rgba(255,248,216,.95) 0%,rgba(255,222,128,.55) 45%,transparent 72%),
+             radial-gradient(ellipse 58% 44% at 50% 62%,rgba(255,206,84,.42) 0%,rgba(205,112,18,.18) 58%,transparent 78%),
+             linear-gradient(180deg,rgba(255,247,214,.72) 0%,rgba(239,184,74,.48) 48%,rgba(120,62,12,.62) 100%)}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;width:2px;height:2px;background:rgba(255,255,230,.72);border-radius:50%;box-shadow:0 0 8px rgba(255,230,120,.75);animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s)}
+@keyframes twinkle{0%,100%{opacity:.1;transform:scale(1)}50%{opacity:.8;transform:scale(1.4)}}
+.screen{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s ease}
+.screen.active{opacity:1;pointer-events:all}
+
+/* LOADING */
+#screen-loading{gap:18px}
+.ll{font-size:56px;animation:sway 2.4s ease-in-out infinite;filter:drop-shadow(0 0 24px rgba(212,160,23,.5))}
+@keyframes sway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+.lt{font-size:13px;letter-spacing:4px;color:var(--muted)}
+.ld{display:flex;gap:6px}
+.ld span{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:bd 1.1s ease-in-out infinite}
+.ld span:nth-child(2){animation-delay:.18s}.ld span:nth-child(3){animation-delay:.36s}
+@keyframes bd{0%,80%,100%{transform:translateY(0);opacity:.3}40%{transform:translateY(-7px);opacity:1}}
+
+/* ERROR */
+#screen-error{gap:14px;padding:32px;text-align:center}
+.ei{font-size:46px}.et{font-size:17px;color:var(--red2);font-weight:600}
+.em{font-size:13px;color:var(--muted);line-height:1.75;max-width:300px}
+.btn-retry{padding:12px 28px;border-radius:12px;cursor:pointer;background:var(--bg3);border:1px solid var(--gold-dim);color:var(--gold);font-family:inherit;font-size:14px}
+
+/* WHEEL */
+#screen-wheel{justify-content:flex-start;padding:24px 20px 16px;text-align:center;overflow-y:auto}
+.top-bar{width:100%;display:flex;align-items:center;justify-content:space-between}
+.app-title{font-family:'Noto Serif TC',serif;font-size:20px;font-weight:900;color:#8A0008;letter-spacing:5px;text-shadow:0 1px 0 rgba(255,255,255,.45),0 0 18px rgba(255,220,90,.45)}
+.rbadge{font-size:11px;color:#7A4A14;background:rgba(255,244,204,.7);border:1px solid rgba(122,74,20,.18);border-radius:20px;padding:5px 12px;letter-spacing:1px}
+.wheel-stage{flex:1;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+.wheel-title{font-family:'Noto Serif TC',serif;font-size:21px;font-weight:900;color:var(--gold);letter-spacing:3px;text-shadow:0 0 24px rgba(212,160,23,.45)}
+.wheel-wrap{position:relative;width:min(82vw,310px);height:min(82vw,310px);display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 18px 36px rgba(0,0,0,.65))}
+.wheel-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);z-index:5;width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-top:34px solid var(--gold2);filter:drop-shadow(0 4px 4px rgba(0,0,0,.45))}
+.wheel-disc{width:100%;height:100%;border-radius:50%;border:8px solid rgba(245,200,66,.9);background:conic-gradient(#B91C1C 0 45deg,#F5C842 45deg 90deg,#7A0A0A 90deg 135deg,#D4A017 135deg 180deg,#B91C1C 180deg 225deg,#F5C842 225deg 270deg,#7A0A0A 270deg 315deg,#D4A017 315deg 360deg);position:relative;transition:transform 5s cubic-bezier(.12,.75,.18,1);box-shadow:inset 0 0 0 3px rgba(80,20,5,.45),inset 0 0 34px rgba(0,0,0,.34)}
+.wheel-disc::after{content:'';position:absolute;inset:38%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF1BC,#D4A017 55%,#7A4A04);box-shadow:0 0 0 5px rgba(80,20,5,.45),0 0 22px rgba(245,200,66,.55)}
+.btn-spin{width:min(82vw,310px);padding:15px;background:linear-gradient(135deg,var(--red) 0%,#7A0A0A 100%);border:1px solid rgba(212,160,23,.45);border-radius:18px;color:white;font-family:inherit;font-size:16px;font-weight:900;letter-spacing:2px;cursor:pointer;box-shadow:0 8px 32px rgba(185,28,28,.45),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .12s}
+.btn-spin:active{transform:scale(.96)}
+.btn-back{margin-top:4px;background:transparent;border:none;color:var(--muted);font-family:inherit;font-size:12px;letter-spacing:1px;cursor:pointer}
+.wheel-result{width:100%;max-width:340px;background:linear-gradient(160deg,#FFF6D8 0%,#F0C873 100%);border:1px solid rgba(126,72,8,.28);border-radius:22px;padding:14px 16px;text-align:center;display:none;box-shadow:0 20px 60px rgba(90,49,6,.24),0 0 0 1px rgba(255,255,255,.24)}
+.wheel-result .pname{font-size:24px}
+.plbl{font-size:14px;font-weight:700;color:#6A3D06;margin-bottom:6px}
+.pname{font-size:28px;font-weight:900;color:#7B0007;font-family:'Noto Serif TC',serif;margin-bottom:6px}
+.psub{font-size:13px;color:#5B3A0D;margin-bottom:14px}
+.btn-again{padding:12px 28px;border-radius:14px;background:linear-gradient(135deg,var(--red) 0%,#7A0A0A 100%);border:1px solid rgba(212,160,23,.4);color:#FFF8DC;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px}
+
+/* Confetti */
+.cf{position:fixed;pointer-events:none;z-index:999;animation:cf-fall var(--dur,1.6s) ease-out forwards var(--del,0s)}
+@keyframes cf-fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+@keyframes card-up{0%{opacity:0;transform:translateY(28px) scale(.95)}100%{opacity:1;transform:translateY(0) scale(1)}}
+
+/* === PRO GOLD UI OVERRIDE === */
+:root{--text:#3B2405;--muted:#5B3A0D;--gold:#9B640B;--gold2:#C17A00;--bg3:#FFF1C7;}
+html,body,button,input,select,textarea,.screen,.btn-retry,.btn-back,.btn-spin,.btn-again{font-family:'Noto Sans Thai','Noto Serif TC',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif !important;}
+.app-title,.wheel-title,.pname,.plbl{font-family:'Noto Serif TC','Noto Sans Thai',serif !important;}
+html,body{color:#3B2405 !important;background:radial-gradient(ellipse 75% 46% at 50% 0%,#FFF9E8 0%,#FFE8A6 42%,rgba(255,232,166,0) 70%),linear-gradient(180deg,#FFF2C6 0%,#F4C46B 46%,#B46C18 100%) !important;}
+.bg-amb{background:radial-gradient(ellipse 78% 48% at 50% 4%,rgba(255,253,238,.96) 0%,rgba(255,232,156,.62) 47%,transparent 74%),radial-gradient(ellipse 52% 34% at 18% 88%,rgba(255,242,190,.38) 0%,transparent 66%),radial-gradient(ellipse 42% 30% at 88% 82%,rgba(180,99,15,.22) 0%,transparent 62%) !important;}
+.star{background:rgba(130,75,8,.42) !important;box-shadow:0 0 6px rgba(255,240,170,.55)}
+.lt,.em,.psub{color:#5B3A0D !important;text-shadow:0 1px 0 rgba(255,255,255,.48)}
+.et{color:#9B111E !important;text-shadow:0 1px 0 rgba(255,255,255,.48)}
+.app-title{color:#7B0007 !important;text-shadow:0 2px 0 rgba(255,235,178,.75),0 0 18px rgba(255,213,90,.58) !important}
+.wheel-title{color:#7A2100 !important;text-shadow:0 2px 0 rgba(255,244,205,.72),0 0 20px rgba(255,213,90,.58) !important}
+.rbadge{color:#5B2A00 !important;background:rgba(255,246,214,.86) !important;border:1px solid rgba(132,77,14,.28) !important;box-shadow:0 4px 16px rgba(120,68,8,.12),inset 0 1px 0 rgba(255,255,255,.68)}
+.btn-back{color:#4A2A07 !important;background:rgba(255,246,214,.74) !important;border:1px solid rgba(108,61,8,.25) !important;font-weight:800 !important;text-shadow:0 1px 0 rgba(255,255,255,.5) !important;box-shadow:0 6px 18px rgba(95,53,8,.12),inset 0 1px 0 rgba(255,255,255,.65) !important;}
+.btn-spin,.btn-again{color:#FFF8DC !important;text-shadow:0 2px 2px rgba(60,0,0,.42) !important;}
+.btn-retry{color:#7B0007 !important;background:rgba(255,246,214,.86) !important;border-color:rgba(123,0,7,.25) !important;font-weight:800 !important;text-shadow:0 1px 0 rgba(255,255,255,.55) !important;}
+.wheel-result{background:linear-gradient(160deg,#FFF6D8 0%,#F0C873 100%) !important;border:1px solid rgba(126,72,8,.28) !important;color:#3B2405 !important;box-shadow:0 20px 60px rgba(90,49,6,.24),0 0 0 1px rgba(255,255,255,.24) !important;}
+.plbl{color:#6A3D06 !important;font-weight:900 !important;text-shadow:0 1px 0 rgba(255,255,255,.6)}
+.pname{color:#7B0007 !important;text-shadow:0 2px 0 rgba(255,236,174,.8),0 0 18px rgba(255,214,88,.56) !important}
+</style>
+</head>
+<body>
+<div class="bg-amb"></div>
+<div class="stars" id="stars"></div>
+
+<!-- LOADING -->
+<div id="screen-loading" class="screen active">
+  <div class="ll">🎡</div>
+  <div class="lt">กำลังโหลดรางวัล</div>
+  <div class="ld"><span></span><span></span><span></span></div>
+</div>
+
+<!-- ERROR -->
+<div id="screen-error" class="screen">
+  <div class="ei">⚠️</div>
+  <div class="et">โหลดข้อมูลไม่สำเร็จ</div>
+  <div class="em" id="errMsg">ไม่สามารถเชื่อมต่อ Apps Script ได้</div>
+  <button class="btn-retry" onclick="boot()">ลองใหม่</button>
+</div>
+
+<!-- WHEEL -->
+<div id="screen-wheel" class="screen">
+  <div class="top-bar">
+    <div class="app-title">โชคลาภ</div>
+    <div class="rbadge" id="wheelRewardBadge">— รางวัล</div>
+  </div>
+  <div class="wheel-stage">
+    <div class="wheel-title">หมุนวงล้อโชคลาภ</div>
+    <div class="wheel-wrap">
+      <div class="wheel-pointer"></div>
+      <div class="wheel-disc" id="wheelDisc"></div>
+    </div>
+    <button class="btn-spin" id="btnSpin" onclick="spinWheel()">หมุนวงล้อ</button>
+    <div class="wheel-result" id="wheelResult">
+      <div class="plbl">🎊 คุณได้รับรางวัล 🎊</div>
+      <div class="pname" id="wheelPrizeName">—</div>
+      <div class="psub">อากงอาม่าให้โชค!</div>
+      <button class="btn-again" onclick="resetWheel()">🔄 หมุนอีกครั้ง</button>
+      <button class="btn-back" onclick="location.href='index.html'">← กลับหน้าหลัก</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API='https://script.google.com/macros/s/AKfycbw6yuCH7_BlNnATWgHNUyVmo8YiD12br97HZammIoRzmlidAK97S7l93Xs9PJ6pUTVpFg/exec';
+
+(function(){
+  const c=document.getElementById('stars');
+  for(let i=0;i<55;i++){
+    const s=document.createElement('div');s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*4}s`;
+    c.appendChild(s);
+  }
+})();
+
+let rewards=[],chosen=null;
+
+async function boot(){
+  show('loading');
+  try{
+    const r=await fetch(API);
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const j=await r.json();
+    if(j.status!=='ok'||!j.rewards.length)throw new Error('ไม่พบรางวัลใน Sheet');
+    rewards=j.rewards;
+    document.getElementById('wheelRewardBadge').textContent=rewards.length+' รางวัล';
+    buildWheel();
+    playIntroSound();
+    show('wheel');
+  }catch(e){
+    document.getElementById('errMsg').textContent=e.message;show('error');
+  }
+}
+
+function pick(){
+  const t=rewards.reduce((s,r)=>s+r.percent,0);
+  let rnd=Math.random()*t;
+  for(const r of rewards){rnd-=r.percent;if(rnd<=0)return r;}
+  return rewards[rewards.length-1];
+}
+
+function buildWheel(){
+  const disc=document.getElementById('wheelDisc');
+  if(!disc)return;
+  disc.innerHTML='';
+  const colors=['#B91C1C','#F5C842','#7A0A0A','#D4A017','#8A0008','#FFD66B','#2A1834','#EF4444'];
+  const segments=24;
+  const step=360/segments;
+  disc.style.background='conic-gradient('+Array.from({length:segments},(_,i)=>`${colors[i%colors.length]} ${i*step}deg ${(i+1)*step}deg`).join(',')+')'  ;
+}
+
+let wheelSpinning=false,wheelRotation=0;
+const WHEEL_SPIN_DURATION=5000,WHEEL_STOP_LEAD=700,WHEEL_WIN_DELAY=150;
+let wheelStopTimer=null,wheelWinTimer=null;
+
+function spinWheel(){
+  if(wheelSpinning||!rewards.length)return;
+  wheelSpinning=true;
+  const btn=document.getElementById('btnSpin');
+  const result=document.getElementById('wheelResult');
+  const disc=document.getElementById('wheelDisc');
+  clearTimeout(wheelStopTimer);clearTimeout(wheelWinTimer);
+  btn.disabled=true;btn.textContent='กำลังหมุน...';
+  result.style.display='none';
+  chosen=pick();
+  playWheelSpin();
+  wheelStopTimer=setTimeout(()=>{playWheelStop();},WHEEL_SPIN_DURATION-WHEEL_STOP_LEAD);
+  const extra=1800+Math.floor(Math.random()*720);
+  wheelRotation+=extra;
+  disc.style.transition=`transform ${WHEEL_SPIN_DURATION}ms cubic-bezier(.12,.75,.18,1)`;
+  disc.style.transform=`rotate(${wheelRotation}deg)`;
+  wheelWinTimer=setTimeout(()=>{
+    stopWheelSpin();soundWheelWin();
+    document.getElementById('wheelPrizeName').textContent=chosen.reward;
+    result.style.display='block';
+    result.style.animation='card-up .5s cubic-bezier(.34,1.56,.64,1) forwards';
+    confetti();
+    btn.textContent='หมุนวงล้อ';btn.disabled=false;wheelSpinning=false;
+  },WHEEL_SPIN_DURATION+WHEEL_WIN_DELAY);
+}
+
+function resetWheel(){
+  clearTimeout(wheelStopTimer);clearTimeout(wheelWinTimer);
+  stopWheelSpin();wheelSpinning=false;
+  const result=document.getElementById('wheelResult');
+  const btn=document.getElementById('btnSpin');
+  result.style.display='none';result.style.animation='';
+  btn.disabled=false;btn.textContent='หมุนวงล้อ';
+}
+
+function show(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+n).classList.add('active');
+}
+
+const CF_C=['#D4A017','#F5C842','#B91C1C','#EF4444','#FFD700','#FFFACD','#FF6B35'];
+function confetti(){
+  for(let i=0;i<60;i++){
+    setTimeout(()=>{
+      const el=document.createElement('div');el.className='cf';
+      const sz=6+Math.random()*8;
+      el.style.cssText=`left:${Math.random()*100}vw;top:-12px;width:${sz}px;height:${sz}px;background:${CF_C[Math.floor(Math.random()*CF_C.length)]};border-radius:${Math.random()>.5?'50%':'2px'};--dur:${1.3+Math.random()}s;--del:${Math.random()*.5}s;`;
+      document.body.appendChild(el);setTimeout(()=>el.remove(),3000);
+    },i*22);
+  }
+}
+
+// ── SOUND ENGINE ──
+const rewardSound=new Audio("sound/reward.mp3");
+const wheelSpinSound=new Audio("sound/wheel-spin.mp3");
+const wheelStopSound=new Audio("sound/wheel-stop.mp3");
+const wheelWinSound=new Audio("sound/wheel-win.mp3");
+rewardSound.preload='auto';wheelSpinSound.preload='auto';wheelStopSound.preload='auto';wheelWinSound.preload='auto';
+let soundsUnlocked=false;
+let wheelSpinTickTimer=null,wheelSpinStartedAt=0;
+
+function unlockOne(a){
+  try{const oldVol=a.volume;a.muted=true;a.play().then(()=>{a.pause();a.currentTime=0;a.muted=false;a.volume=oldVol;}).catch(()=>{a.muted=false;a.volume=oldVol;});}catch(e){}
+}
+function unlockSounds(){
+  if(soundsUnlocked)return;soundsUnlocked=true;
+  [rewardSound,wheelSpinSound,wheelStopSound,wheelWinSound].forEach(unlockOne);
+}
+function playIntroSound(){
+  try{rewardSound.pause();rewardSound.currentTime=0;rewardSound.volume=0.35;rewardSound.play().catch(()=>{});}catch(e){}
+}
+function clearWheelSpinTicks(){
+  if(wheelSpinTickTimer){clearTimeout(wheelSpinTickTimer);wheelSpinTickTimer=null;}
+}
+function playWheelSpinTick(){
+  try{const s=wheelSpinSound.cloneNode();s.volume=0.72;s.playbackRate=0.96+Math.random()*0.08;s.play().catch(()=>{});}catch(e){}
+}
+function scheduleWheelSpinTick(){
+  const elapsed=Date.now()-wheelSpinStartedAt;
+  const slowStart=Math.max(0,WHEEL_SPIN_DURATION-WHEEL_STOP_LEAD-1600);
+  let delay=70;
+  if(elapsed>slowStart){const t=Math.min(1,(elapsed-slowStart)/1600);delay=Math.round(70+(t*t*210));}
+  playWheelSpinTick();clearWheelSpinTicks();
+  wheelSpinTickTimer=setTimeout(scheduleWheelSpinTick,delay);
+}
+function playWheelSpin(){
+  try{clearWheelSpinTicks();wheelStopSound.pause();wheelStopSound.currentTime=0;wheelWinSound.pause();wheelWinSound.currentTime=0;wheelSpinSound.pause();wheelSpinSound.currentTime=0;wheelSpinStartedAt=Date.now();scheduleWheelSpinTick();}catch(e){}
+}
+function stopWheelSpin(){
+  try{clearWheelSpinTicks();wheelSpinSound.pause();wheelSpinSound.currentTime=0;}catch(e){}
+}
+function playWheelStop(){
+  try{clearWheelSpinTicks();wheelSpinSound.pause();wheelSpinSound.currentTime=0;wheelStopSound.pause();wheelStopSound.currentTime=0;wheelStopSound.volume=0.95;wheelStopSound.play().catch(()=>{});}catch(e){}
+}
+function soundWheelWin(){
+  try{clearWheelSpinTicks();wheelSpinSound.pause();wheelSpinSound.currentTime=0;wheelStopSound.pause();wheelStopSound.currentTime=0;wheelWinSound.pause();wheelWinSound.currentTime=0;wheelWinSound.volume=0.9;wheelWinSound.play().catch(()=>{});}catch(e){}
+}
+document.addEventListener('touchstart', unlockSounds, {once: true});
+document.addEventListener('mousedown', unlockSounds, {once: true});
+boot();
+</script>
+</body>
+</html>
