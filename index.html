@@ -65,6 +65,7 @@ header h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .game-button:hover {
@@ -72,10 +73,41 @@ header h2 {
   box-shadow: 0 12px 25px rgba(0,0,0,0.35);
 }
 
-.game-button img {
+/* CSS Icon */
+.game-button::before {
+  content: '';
+  display: block;
   width: 50px;
   height: 50px;
   margin-bottom: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #FFF, #FFD700);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+/* กำหนด icon ของแต่ละเกมด้วย pseudo-class */
+.game-button:nth-child(1)::before {
+  background: radial-gradient(circle at 30% 30%, #FFF, #FFD700);
+  box-shadow: inset 0 0 5px #FFA500;
+}
+
+.game-button:nth-child(2)::before {
+  background: conic-gradient(#FF5722 0% 25%, #FFEB3B 25% 50%, #4CAF50 50% 75%, #2196F3 75% 100%);
+}
+
+.game-button:nth-child(3)::before {
+  background: linear-gradient(135deg, #FFB74D, #FF8A65);
+  clip-path: polygon(50% 0%, 90% 25%, 75% 90%, 25% 90%, 10% 25%);
+}
+
+.game-button:nth-child(4)::before {
+  background: linear-gradient(135deg, #FFCC80, #FF7043);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.game-button:nth-child(5)::before {
+  background: radial-gradient(circle at 50% 50%, #FFEB3B 0%, #FF8A65 100%);
+  border: 2px solid #FFF;
 }
 
 footer {
@@ -91,7 +123,7 @@ footer {
     padding: 15px;
     font-size: 14px;
   }
-  .game-button img {
+  .game-button::before {
     width: 40px;
     height: 40px;
     margin-bottom: 5px;
@@ -107,26 +139,11 @@ footer {
 </header>
 
 <div class="game-grid">
-  <a href="https://kmgame.github.io/" class="game-button">
-    <img src="images/icon1.png" alt="เสี่ยงเซียมซี">
-    เกมเสี่ยงเซียมซี
-  </a>
-  <a href="https://kmgame.github.io/" class="game-button">
-    <img src="images/icon2.png" alt="วงล้อ">
-    เกมหมุนวงล้อ
-  </a>
-  <a href="https://kmgame.github.io/" class="game-button">
-    <img src="images/icon3.png" alt="ลายมือ">
-    เกมดูลายมือ
-  </a>
-  <a href="https://kmgame.github.io/" class="game-button">
-    <img src="images/icon4.png" alt="โหงวเฮ้ง">
-    เกมดูโหงวเฮ้ง
-  </a>
-  <a href="https://kmgame.github.io/" class="game-button">
-    <img src="images/icon5.png" alt="โคม">
-    เกมวิ่งโคม
-  </a>
+  <a href="https://kmgame.github.io/" class="game-button">เกมเสี่ยงเซียมซี</a>
+  <a href="https://kmgame.github.io/" class="game-button">เกมหมุนวงล้อ</a>
+  <a href="https://kmgame.github.io/" class="game-button">เกมดูลายมือ</a>
+  <a href="https://kmgame.github.io/" class="game-button">เกมดูโหงวเฮ้ง</a>
+  <a href="https://kmgame.github.io/" class="game-button">เกมวิ่งโคม</a>
 </div>
 
 <footer>
