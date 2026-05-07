@@ -4,81 +4,99 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ศาลเจ้าพาวิ่ง & เกมส์สนุก</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to bottom, #FFF5E1, #FFD699);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    color: #333;
-  }
+body {
+  margin: 0;
+  font-family: 'Kanit', sans-serif;
+  background: linear-gradient(to bottom, #FFF9F0, #FFE4B5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  color: #333;
+}
 
-  header {
-    text-align: center;
-    padding: 20px 10px 10px 10px;
-  }
+header {
+  text-align: center;
+  padding: 20px 10px 10px 10px;
+}
 
-  header img {
-    width: 120px;
-    height: auto;
-  }
+header img {
+  width: 120px;
+  height: auto;
+}
 
-  header h1 {
-    margin: 10px 0 5px 0;
-    font-size: 24px;
-    color: #B22222; /* แดงสด */
-  }
+header h1 {
+  margin: 10px 0 5px 0;
+  font-size: 28px;
+  color: #D32F2F;
+  font-weight: 700;
+}
 
-  header h2 {
-    margin: 0;
-    font-size: 18px;
-    color: #FF8C00; /* ส้มสด */
-  }
+header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #FF9800;
+  font-weight: 600;
+}
 
-  .game-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 20px;
-    width: 90%;
-    max-width: 800px;
-    margin-top: 30px;
-  }
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  width: 90%;
+  max-width: 900px;
+  margin-top: 30px;
+}
 
+.game-button {
+  background: linear-gradient(145deg, #FFB74D, #FF8A65);
+  border: none;
+  border-radius: 20px;
+  padding: 20px 10px;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+}
+
+.game-button img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+footer {
+  margin-top: auto;
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+@media (max-width: 500px) {
   .game-button {
-    background: linear-gradient(to bottom right, #FFD700, #FF6347);
-    border: none;
-    border-radius: 15px;
-    padding: 20px;
-    font-size: 16px;
-    color: #fff;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  }
-
-  .game-button:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  }
-
-  footer {
-    margin-top: auto;
     padding: 15px;
-    text-align: center;
     font-size: 14px;
-    color: #555;
   }
-
-  @media (max-width: 500px) {
-    .game-button {
-      padding: 15px;
-      font-size: 14px;
-    }
+  .game-button img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
   }
+}
 </style>
 </head>
 <body>
@@ -89,11 +107,26 @@
 </header>
 
 <div class="game-grid">
-  <a href="https://kmgame.github.io/" class="game-button">เกมเสี่ยงเซียมซี</a>
-  <a href="https://kmgame.github.io/" class="game-button">เกมหมุนวงล้อ</a>
-  <a href="https://kmgame.github.io/" class="game-button">เกมดูลายมือ</a>
-  <a href="https://kmgame.github.io/" class="game-button">เกมดูโหงวเฮ้ง</a>
-  <a href="https://kmgame.github.io/" class="game-button">เกมวิ่งโคม</a>
+  <a href="https://kmgame.github.io/" class="game-button">
+    <img src="images/icon1.png" alt="เสี่ยงเซียมซี">
+    เกมเสี่ยงเซียมซี
+  </a>
+  <a href="https://kmgame.github.io/" class="game-button">
+    <img src="images/icon2.png" alt="วงล้อ">
+    เกมหมุนวงล้อ
+  </a>
+  <a href="https://kmgame.github.io/" class="game-button">
+    <img src="images/icon3.png" alt="ลายมือ">
+    เกมดูลายมือ
+  </a>
+  <a href="https://kmgame.github.io/" class="game-button">
+    <img src="images/icon4.png" alt="โหงวเฮ้ง">
+    เกมดูโหงวเฮ้ง
+  </a>
+  <a href="https://kmgame.github.io/" class="game-button">
+    <img src="images/icon5.png" alt="โคม">
+    เกมวิ่งโคม
+  </a>
 </div>
 
 <footer>
