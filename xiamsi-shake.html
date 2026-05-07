@@ -274,7 +274,9 @@ const API='https://script.google.com/macros/s/AKfycbw6yuCH7_BlNnATWgHNUyVmo8YiD1
 })();
 
 let rewards=[],power=0,chosen=null,revealed=false;
-
+// แทนที่การเรียก unlockSounds() ใน boot()
+document.addEventListener('touchstart', unlockSounds, {once: true});
+document.addEventListener('mousedown', unlockSounds, {once: true});
 async function boot(){
   show('loading');
   try{
