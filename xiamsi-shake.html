@@ -441,7 +441,9 @@ function soundFly(){
 function soundReveal(){
   try{rewardSound.pause();rewardSound.currentTime=0;rewardSound.volume=0.85;rewardSound.play().catch(()=>{});}catch(e){}
 }
-
+document.addEventListener('touchstart', unlockSounds, {once: true});
+document.addEventListener('mousedown', unlockSounds, {once: true});
+boot();
 boot();
 </script>
 </body>
