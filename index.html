@@ -9,7 +9,7 @@
 body {
   margin: 0;
   font-family: 'Kanit', sans-serif;
-  background: linear-gradient(to bottom, #FFF9F0, #FFE4B5);
+  background: linear-gradient(to bottom, #FFF8E1, #FFECB3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,29 +22,26 @@ header {
   padding: 20px 10px 10px 10px;
 }
 
-header img {
-  width: 120px;
-  height: auto;
-}
-
 header h1 {
   margin: 10px 0 5px 0;
-  font-size: 28px;
+  font-size: 32px;
   color: #D32F2F;
   font-weight: 700;
+  text-shadow: 1px 1px 3px #FFA500;
 }
 
 header h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 22px;
   color: #FF9800;
   font-weight: 600;
+  text-shadow: 1px 1px 2px #FFC107;
 }
 
 .game-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 20px;
+  gap: 25px;
   width: 90%;
   max-width: 900px;
   margin-top: 30px;
@@ -53,62 +50,46 @@ header h2 {
 .game-button {
   background: linear-gradient(145deg, #FFB74D, #FF8A65);
   border: none;
-  border-radius: 20px;
-  padding: 20px 10px;
+  border-radius: 25px;
+  padding: 25px 15px;
   font-size: 16px;
   color: #fff;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 
 .game-button:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+  filter: brightness(1.1);
 }
 
 /* CSS Icon */
 .game-button::before {
   content: '';
   display: block;
-  width: 50px;
-  height: 50px;
-  margin-bottom: 10px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 12px;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, #FFF, #FFD700);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* กำหนด icon ของแต่ละเกมด้วย pseudo-class */
-.game-button:nth-child(1)::before {
-  background: radial-gradient(circle at 30% 30%, #FFF, #FFD700);
-  box-shadow: inset 0 0 5px #FFA500;
-}
-
-.game-button:nth-child(2)::before {
-  background: conic-gradient(#FF5722 0% 25%, #FFEB3B 25% 50%, #4CAF50 50% 75%, #2196F3 75% 100%);
-}
-
-.game-button:nth-child(3)::before {
-  background: linear-gradient(135deg, #FFB74D, #FF8A65);
-  clip-path: polygon(50% 0%, 90% 25%, 75% 90%, 25% 90%, 10% 25%);
-}
-
-.game-button:nth-child(4)::before {
-  background: linear-gradient(135deg, #FFCC80, #FF7043);
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-}
-
-.game-button:nth-child(5)::before {
-  background: radial-gradient(circle at 50% 50%, #FFEB3B 0%, #FF8A65 100%);
-  border: 2px solid #FFF;
-}
+/* icon แยกตามเกม */
+.game-button:nth-child(1)::before { content:"🎴"; font-size: 40px; display: flex; align-items:center; justify-content:center; text-align:center; }
+.game-button:nth-child(2)::before { content:"🎡"; font-size: 40px; display: flex; align-items:center; justify-content:center; text-align:center; }
+.game-button:nth-child(3)::before { content:"✋"; font-size: 40px; display: flex; align-items:center; justify-content:center; text-align:center; }
+.game-button:nth-child(4)::before { content:"👤"; font-size: 40px; display: flex; align-items:center; justify-content:center; text-align:center; }
+.game-button:nth-child(5)::before { content:"🏮"; font-size: 40px; display: flex; align-items:center; justify-content:center; text-align:center; }
 
 footer {
   margin-top: auto;
@@ -120,20 +101,15 @@ footer {
 
 @media (max-width: 500px) {
   .game-button {
-    padding: 15px;
+    padding: 18px 10px;
     font-size: 14px;
   }
-  .game-button::before {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 5px;
-  }
+  .game-button::before { width: 45px; height: 45px; margin-bottom: 8px; font-size: 30px; }
 }
 </style>
 </head>
 <body>
 <header>
-  <img src="images/logo.png" alt="สมาคมฯปึงเถ่ากงม่า Logo">
   <h1>สมาคมฯปึงเถ่ากงม่า</h1>
   <h2>ศาลเจ้าพาวิ่ง & เกมส์สนุก</h2>
 </header>
