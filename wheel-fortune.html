@@ -278,7 +278,9 @@ function playWheelStop(){
 function soundWheelWin(){
   try{clearWheelSpinTicks();wheelSpinSound.pause();wheelSpinSound.currentTime=0;wheelStopSound.pause();wheelStopSound.currentTime=0;wheelWinSound.pause();wheelWinSound.currentTime=0;wheelWinSound.volume=0.9;wheelWinSound.play().catch(()=>{});}catch(e){}
 }
-
+document.addEventListener('touchstart', unlockSounds, {once: true});
+document.addEventListener('mousedown', unlockSounds, {once: true});
+boot();
 boot();
 </script>
 </body>
