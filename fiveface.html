@@ -274,7 +274,7 @@ function resizeImage(file,max,q){
 async function handleFile(file){
   if(!file)return;
   if(!file.type.startsWith("image/")){alert("กรุณาเลือกรูปภาพเท่านั้น");return;}
-  imageDataUrl=await resizeImage(file,1200,0.85);
+  imageDataUrl=await resizeImage(file,800,0.7);
   previewImg.src=imageDataUrl;
   previewWrap.style.display="block";
   resultWrap.style.display="none";
